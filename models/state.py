@@ -14,11 +14,10 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
     cities = relationship("City", backref="state")
 
-    if getenv('HBNB_TYPE_STORAGE') != 'db':
-        @property
-        def cities(self):
-            """Getter attribute
+    @property
+    def cities(self):
+        """Getter attribute
             that returns list of City instances related to state"""
 
-            return [city for city in models.storage.all(City).values()
-                    if city.state_id == self.id]
+        return [city for city in models.storage.all(City).values()
+                if city.state_id == self.id]
