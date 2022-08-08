@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 """This module defines a base class for all models in our hbnb clone"""
-from email.policy import default
-from enum import unique
 import uuid
 from datetime import datetime
+import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import String, DateTime, Column
 import models
+from os import getenv
+
 
 Base = declarative_base()
 
