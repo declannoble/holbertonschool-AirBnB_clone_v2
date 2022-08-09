@@ -2,7 +2,7 @@
 """ Console Module """
 import cmd
 import sys
-
+import shlex
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -243,21 +243,19 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
-        print_list = []
+        lineAsArgs = shlex.split(args)
+        objectsInStorage = {}
+        listOfObjectToPrint = []
+        if len(lineAsArgs) == 0:
+            objectsInStorage = storage.all()
+        elif args[0] in self.classes:
+            objectsInStorage = storage.all(self.classes[args[0]])
+        elif not self.verify_class_in_project(lineAsArgs):
+            return
 
-        if args:
-            args = args.split(' ')[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
-                print("** class doesn't exist **")
-                return
-            for k, v in storage._FileStorage.__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
-        else:
-            for k, v in storage._FileStorage.__objects.items():
-                print_list.append(str(v))
-
-        print(print_list)
+        for value in objectsInStorage.values():
+            listOfObjectToPrint.append(str(value))
+        print(listOfObjectToPrint)
 
     def help_all(self):
         """ Help information for the all command """
@@ -363,6 +361,18 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
+    @classmethod
+    def verify_class_in_project(cls, args):
+        """verify that class being created is defined in the project
+        """
+        if len(args) == 0:
+            print("** class name missing **")
+            return False
+        if args[0] not in cls.classes:
+            print("** class doesn't exist **")
+            return False
+        return True
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
