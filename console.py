@@ -249,7 +249,7 @@ class HBNBCommand(cmd.Cmd):
         if len(lineAsArgs) == 0:
             objectsInStorage = storage.all()
         elif lineAsArgs[0] in self.classes:
-            objectsInStorage = storage.all(self.classes[lineAsArgs[0]])
+            objectsInStorage = storage.all(lineAsArgs[0])
         elif not self.verify_class_in_project(lineAsArgs):
             return
 

@@ -46,17 +46,23 @@ class DBStorage:
     def all(self, cls=None):
         """query on the current database session"""
         new_dict = {}
-
+        adjClassDict = {'State': State, 'User': User, 'Place': Place,
+                        'City': City,
+                        'Amenity': Amenity, 'Review': Review
+    }
         if cls is None:
-            for item in classes:
-                dbObjects = self.__session.query(item)
+            for key, value in adjClassDict.items():
+                try:
+                    dbObjects = self.__session.query(value).all()
+                except Exception:
+                    print("skipping")
+                    continue
                 for obj in dbObjects:
                     key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj
             return new_dict
         else:
             if cls in classes:
-                print(classes[cls])
                 dbObjects = self.__session.query(classes[cls]).all()
                 for obj in dbObjects:
                     key = obj.__class__.__name__ + '.' + obj.id
