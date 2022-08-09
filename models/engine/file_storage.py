@@ -25,14 +25,11 @@ class FileStorage:
 
     def save(self):
         """Saves storage dictionary to file"""
-        with open(FileStorage.__file_path, 'w') as f:
-            temp = {}
-            temp.update(FileStorage.__objects)
-            for key, val in temp.items():
-                temp[key] = val.to_dict()
-            print(temp)
-            json.dump(temp, f)
-        print("save complete")
+        jsonObject = {}
+        for key in self.__objects:
+            jsonObject[key] = self.__objects[key].to_dict()
+        with open(self.__file_path, "w", encoding='utf-8') as f:
+            json.dump(jsonObject, f)
 
     def reload(self):
         """Loads storage dictionary from file"""
@@ -50,16 +47,15 @@ class FileStorage:
                     'Review': Review
                 }
         try:
-            temp = {}
-            with open(FileStorage.__file_path, 'r') as f:
-                temp = json.load(f)
-                for key, val in temp.items():
-                    self.all()[key] = classes[val['__class__']](**val)
+            with open(self.__file_path, 'r') as f:
+                jo = json.load(f)
+            for key in jo:
+                self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
         except FileNotFoundError:
             pass
 
     def delete(self, obj=None):
-        """delete obj from __objects if it’s inside"""
+        """delete obj from __objects if its inside"""
         if obj is not None:
             key = obj.__class__.__name__ + '.' + obj.id
             if key in self.__objects:

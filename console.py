@@ -127,7 +127,7 @@ class HBNBCommand(cmd.Cmd):
         if (len(argsAsAList) > 1):
             for key, value in (self.create_dictionary(argsAsAList[1:])).items():
                 setattr(new_instance, key, value)
-        storage.save()
+        new_instance.save()
         print(new_instance.id)
         storage.save()
 
