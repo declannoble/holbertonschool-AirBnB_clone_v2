@@ -49,13 +49,14 @@ class DBStorage:
 
         if cls is None:
             for item in classes:
-                dbObjects = self.__session.query(classes[item]).all()
+                dbObjects = self.__session.query(item)
                 for obj in dbObjects:
                     key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj
             return new_dict
         else:
             if cls in classes:
+                print(classes[cls])
                 dbObjects = self.__session.query(classes[cls]).all()
                 for obj in dbObjects:
                     key = obj.__class__.__name__ + '.' + obj.id
