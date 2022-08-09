@@ -45,14 +45,22 @@ class DBStorage:
 
     def all(self, cls=None):
         """query on the current database session"""
+        new_dict = {}
+
         if cls is None:
-            return self.__objects
+            for item in classes:
+                dbObjects = self.__session.query(classes[item]).all()
+                for obj in dbObjects:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj
+            return new_dict
         else:
-            dictOfClassMatchInObjectDict = {}
-            for key, value in self.__objects.items():
-                if type(value) == cls:
-                    dictOfClassMatchInObjectDict[key] = value
-            return dictOfClassMatchInObjectDict
+            if cls in classes:
+                dbObjects = self.__session.query(classes[cls]).all()
+                for obj in dbObjects:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj
+        return new_dict
 
     def new(self, obj):
         """Adds new object to current database session"""
