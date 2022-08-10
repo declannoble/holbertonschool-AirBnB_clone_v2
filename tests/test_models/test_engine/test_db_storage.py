@@ -66,10 +66,10 @@ class TestDBStorage(unittest.TestCase):
         """tests create state"""
         self.consol = HBNBCommand()
         SQLdbConnection = MySQLdb.connect(host="localhost",
-                                      port=3306,
-                                      user="hbnb_test",
-                                      passwd="hbnb_test",
-                                      db="hbnb_test_db")
+                                          port=3306,
+                                          user="hbnb_test",
+                                          passwd="hbnb_test",
+                                          db="hbnb_test_db")
         dbCurser = SQLdbConnection.cursor()
         dbCurser.execute('''
                         SELECT * FROM users
