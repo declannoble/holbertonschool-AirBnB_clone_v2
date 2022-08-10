@@ -3,8 +3,13 @@
 from os import getenv
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float
-# from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship
 
+place_amenity = Table("place_amenity", Base.metadata,
+                      Column("place_id", String(60), ForeignKey("places.id"),
+                             primary_key=True, nullable=False),
+                      Column("amenity_id", String(60), ForeignKey(
+                          "amenities.id"), primary_key=True, nullable=False))
 
 class Place(BaseModel, Base):
     """ Attributes for place class"""
@@ -21,12 +26,16 @@ class Place(BaseModel, Base):
         price_by_night = Column(Integer, nullable=False, default=0)
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
-        # amenity_ids = []
-        # reviews = relationship('Review', backref='place',
-        #                        cascade='all, delete-orphan')
-        # amenities = relationship('Amenity', secondary='place_amenity',
-        #                          backref="place_amenities",
-        #                          viewonly=False)
+        amenity_ids = []
+        reviews = relationship('Review', backref='place',
+                                cascade='all, delete-orphan')
+        amenities = relationship('Amenity', secondary='place_amenity',
+                                  backref="place_amenities",
+                                  viewonly=False)
+
+        if getenv("HBNB_TYPE_STORAGE") == 'db':
+            amenities = relationship('Amenity', secondary=place_amenity,
+                                     viewonly=False)
     else:
         city_id = ""
         user_id = ""
@@ -39,5 +48,3 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
-
-    
