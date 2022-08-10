@@ -7,6 +7,7 @@ import unittest
 import inspect
 import pycodestyle
 import datetime
+from os import getenv
 from models import review
 Review = review.Review
 
@@ -79,9 +80,14 @@ class TestBaseModel(unittest.TestCase):
 
     def test_default_values(self):
         """ will test the ability to update """
-        self.assertEqual(self.temp_b.place_id, "")
-        self.assertEqual(self.temp_b.user_id, "")
-        self.assertEqual(self.temp_b.text, "")
+        if getenv("HBNB_TYPE_STORAGE") == 'db':
+            self.assertEqual(self.temp_b.place_id, None)
+            self.assertEqual(self.temp_b.user_id, None)
+            self.assertEqual(self.temp_b.text, None)
+        else:
+            self.assertEqual(self.temp_b.place_id, "")
+            self.assertEqual(self.temp_b.user_id, "")
+            self.assertEqual(self.temp_b.text, "")
 
     def test_str_method(self):
         """ will test the __str__ method to ensure it is working """

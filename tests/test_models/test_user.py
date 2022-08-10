@@ -7,6 +7,7 @@ import unittest
 import inspect
 import pycodestyle
 import datetime
+from os import getenv
 from models import user
 User = user.User
 
@@ -79,10 +80,16 @@ class TestBaseModel(unittest.TestCase):
 
     def test_default_values(self):
         """ will test the ability to update """
-        self.assertEqual(self.temp_b.first_name, "")
-        self.assertEqual(self.temp_b.last_name, "")
-        self.assertEqual(self.temp_b.password, "")
-        self.assertEqual(self.temp_b.email, "")
+        if getenv("HBNB_TYPE_STORAGE") == 'db':
+            self.assertEqual(self.temp_b.first_name, None)
+            self.assertEqual(self.temp_b.last_name, None)
+            self.assertEqual(self.temp_b.password, None)
+            self.assertEqual(self.temp_b.email, None)
+        else:
+            self.assertEqual(self.temp_b.first_name, "")
+            self.assertEqual(self.temp_b.last_name, "")
+            self.assertEqual(self.temp_b.password, "")
+            self.assertEqual(self.temp_b.email, "")
 
     def test_str_method(self):
         """ will test the __str__ method to ensure it is working """

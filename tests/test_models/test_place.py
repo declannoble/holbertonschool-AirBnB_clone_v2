@@ -7,6 +7,7 @@ import unittest
 import inspect
 import pycodestyle
 import datetime
+from os import getenv
 from models import place
 Place = place.Place
 
@@ -79,17 +80,29 @@ class TestBaseModel(unittest.TestCase):
 
     def test_default_values(self):
         """ will test the ability to update """
-        self.assertEqual(self.temp_b.city_id, "")
-        self.assertEqual(self.temp_b.user_id, "")
-        self.assertEqual(self.temp_b.name, "")
-        self.assertEqual(self.temp_b.description, "")
-        self.assertEqual(self.temp_b.number_rooms, 0)
-        self.assertEqual(self.temp_b.number_bathrooms, 0)
-        self.assertEqual(self.temp_b.max_guest, 0)
-        self.assertEqual(self.temp_b.price_by_night, 0)
-        self.assertEqual(self.temp_b.latitude, 0.0)
-        self.assertEqual(self.temp_b.longitude, 0.0)
-        self.assertEqual(self.temp_b.amenity_ids, [])
+        if getenv("HBNB_TYPE_STORAGE") == 'db':
+            self.assertEqual(self.temp_b.city_id, None)
+            self.assertEqual(self.temp_b.user_id, None)
+            self.assertEqual(self.temp_b.name, None)
+            self.assertEqual(self.temp_b.description, None)
+            self.assertEqual(self.temp_b.number_rooms, None)
+            self.assertEqual(self.temp_b.number_bathrooms, None)
+            self.assertEqual(self.temp_b.max_guest, None)
+            self.assertEqual(self.temp_b.price_by_night, None)
+            self.assertEqual(self.temp_b.latitude, None)
+            self.assertEqual(self.temp_b.longitude, None)
+        else:
+            self.assertEqual(self.temp_b.city_id, "")
+            self.assertEqual(self.temp_b.user_id, "")
+            self.assertEqual(self.temp_b.name, "")
+            self.assertEqual(self.temp_b.description, "")
+            self.assertEqual(self.temp_b.number_rooms, 0)
+            self.assertEqual(self.temp_b.number_bathrooms, 0)
+            self.assertEqual(self.temp_b.max_guest, 0)
+            self.assertEqual(self.temp_b.price_by_night, 0)
+            self.assertEqual(self.temp_b.latitude, 0.0)
+            self.assertEqual(self.temp_b.longitude, 0.0)
+            self.assertEqual(self.temp_b.amenity_ids, [])
 
     def test_str_method(self):
         """ will test the __str__ method to ensure it is working """
