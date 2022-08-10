@@ -48,7 +48,8 @@ class TestBaseDocs(unittest.TestCase):
             self.assertTrue(len(func[1].__doc__) >= 1)
 
 
-@unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'file')
+@unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'file',
+                 "system setup to use file_storage")
 class TestDBStorage(unittest.TestCase):
     """ Test for DBstorage class """
     pass

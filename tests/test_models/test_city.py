@@ -7,6 +7,7 @@ import unittest
 import inspect
 import pycodestyle
 import datetime
+from os import getenv
 from models import city
 City = city.City
 
@@ -79,7 +80,10 @@ class TestBaseModel(unittest.TestCase):
 
     def test_default_values(self):
         """ will test the ability to update """
-        self.assertEqual(self.temp_b.name, "")
+        if getenv("HBNB_TYPE_STORAGE") == 'db':
+            self.assertEqual(self.temp_b.name, None)
+        else:
+            self.assertEqual(self.temp_b.name, "")
 
     def test_str_method(self):
         """ will test the __str__ method to ensure it is working """
