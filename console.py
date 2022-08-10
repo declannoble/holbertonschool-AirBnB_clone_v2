@@ -125,8 +125,8 @@ class HBNBCommand(cmd.Cmd):
             return
         new_instance = HBNBCommand.classes[argsAsAList[0]]()
         if (len(argsAsAList) > 1):
-            for key, value in (self.create_dictionary\
-                (argsAsAList[1:])).items():
+            for key, value in (self.create_dictionary
+                               (argsAsAList[1:])).items():
                 setattr(new_instance, key, value)
         new_instance.save()
         print(new_instance.id)
@@ -235,7 +235,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
