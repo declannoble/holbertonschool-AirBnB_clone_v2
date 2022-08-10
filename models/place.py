@@ -5,7 +5,8 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from sqlalchemy.orm import relationship
 from models.review import Review
-# from models.amenity import Amenity
+from models.__init__ import storage
+from models.amenity import Amenity
 
 
 metadata = Base.metadata
@@ -58,7 +59,7 @@ class Place(BaseModel, Base):
                 """returns list of review instances"""
                 reviewList = []
                 for reviews in storage.all(Review).values():
-                    if review.place_id in self.id:
+                    if reviews.place_id in self.id:
                         reviewList.append(reviews)
                 return reviewList
 
