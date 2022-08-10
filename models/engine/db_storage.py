@@ -49,7 +49,7 @@ class DBStorage:
         adjClassDict = {'State': State, 'User': User, 'Place': Place,
                         'City': City,
                         'Amenity': Amenity, 'Review': Review
-    }
+                        }
         if cls is None:
             for key, value in adjClassDict.items():
                 try:
