@@ -86,10 +86,10 @@ class TestBaseModel(unittest.TestCase):
             self.assertEqual(self.temp_b.password, None)
             self.assertEqual(self.temp_b.email, None)
         else:
-            self.assertEqual(self.temp_b.first_name, "")
-            self.assertEqual(self.temp_b.last_name, "")
-            self.assertEqual(self.temp_b.password, "")
-            self.assertEqual(self.temp_b.email, "")
+            self.assertEqual(self.temp_b.first_name, None)
+            self.assertEqual(self.temp_b.last_name, None)
+            self.assertEqual(self.temp_b.password, None)
+            self.assertEqual(self.temp_b.email, None)
 
     def test_str_method(self):
         """ will test the __str__ method to ensure it is working """

@@ -85,9 +85,9 @@ class TestBaseModel(unittest.TestCase):
             self.assertEqual(self.temp_b.user_id, None)
             self.assertEqual(self.temp_b.text, None)
         else:
-            self.assertEqual(self.temp_b.place_id, "")
-            self.assertEqual(self.temp_b.user_id, "")
-            self.assertEqual(self.temp_b.text, "")
+            self.assertEqual(self.temp_b.place_id, None)
+            self.assertEqual(self.temp_b.user_id, None)
+            self.assertEqual(self.temp_b.text, None)
 
     def test_str_method(self):
         """ will test the __str__ method to ensure it is working """

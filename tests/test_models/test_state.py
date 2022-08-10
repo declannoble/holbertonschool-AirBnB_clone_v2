@@ -83,7 +83,7 @@ class TestBaseModel(unittest.TestCase):
         if getenv("HBNB_TYPE_STORAGE") == 'db':
             self.assertEqual(self.temp_b.name, None)
         else:
-            self.assertEqual(self.temp_b.name, "")
+            self.assertEqual(self.temp_b.name, None)
 
     def test_str_method(self):
         """ will test the __str__ method to ensure it is working """
