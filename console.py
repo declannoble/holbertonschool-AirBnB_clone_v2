@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] == '{' and pline[-1] =='}'\
+                    if pline[0] == '{' and pline[-1] == '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -125,14 +125,16 @@ class HBNBCommand(cmd.Cmd):
             return
         new_instance = HBNBCommand.classes[argsAsAList[0]]()
         if (len(argsAsAList) > 1):
-            for key, value in (self.create_dictionary(argsAsAList[1:])).items():
+            for key, value in (self.create_dictionary\
+                (argsAsAList[1:])).items():
                 setattr(new_instance, key, value)
         new_instance.save()
         print(new_instance.id)
         storage.save()
 
     def create_dictionary(self, listToTurnToDict):
-        """ This method is just used to help with parameters in create command"""
+        """ This method is just used to
+        help with parameters in create command"""
         returnDictionary = {}
         for item in listToTurnToDict:
             if "=" in item:
@@ -153,7 +155,9 @@ class HBNBCommand(cmd.Cmd):
                     return (None)
                 if char == " ":
                     return (None)
-            return (variableToIdentify.strip('"').replace('_', ' ').replace("\\\"", "\""))
+            return (variableToIdentify.strip('"')
+                                      .replace('_', ' ')
+                                      .replace("\\\"", "\""))
         else:
             NumOfDecPoints = 0
             acceptedChars = "0123456789.-"
@@ -373,6 +377,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return False
         return True
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
