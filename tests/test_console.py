@@ -36,6 +36,7 @@ class TestBaseDocs(unittest.TestCase):
         """ Tests for docstring"""
         self.assertTrue(len(console.__doc__) >= 1)
 
+
 class TestConsole(unittest.TestCase):
     """the individual unit tests for the console"""
 

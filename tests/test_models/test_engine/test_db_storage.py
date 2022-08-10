@@ -10,6 +10,7 @@ from os import getenv
 from models.engine import file_storage
 FileStorage = file_storage.FileStorage
 
+
 class TestBaseDocs(unittest.TestCase):
     """ Tests for documentation of class"""
 
@@ -45,6 +46,7 @@ class TestBaseDocs(unittest.TestCase):
         """Tests for docstrings in all functions"""
         for func in self.base_funcs:
             self.assertTrue(len(func[1].__doc__) >= 1)
+
 
 @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'file')
 class TestDBStorage(unittest.TestCase):
