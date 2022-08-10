@@ -5,7 +5,7 @@ from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import String, DateTime, Column
 import models
-from os import getenv
+# from os import getenv
 
 
 Base = declarative_base()
@@ -14,10 +14,10 @@ timeFormat = "%Y-%m-%dT%H:%M:%S.%f"
 
 class BaseModel:
     """A base class for all hbnb models"""
-    if getenv("HBNB_TYPE_STORAGE") == 'db':
-        id = Column(String(60), unique=True, nullable=False, primary_key=True)
-        created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-        updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    # if getenv("HBNB_TYPE_STORAGE") == 'db':
+    id = Column(String(60), unique=True, nullable=False, primary_key=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
         """Initialises data """

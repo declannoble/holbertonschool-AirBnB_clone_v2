@@ -20,58 +20,58 @@ if getenv("HBNB_TYPE_STORAGE") == 'db':
 
 class Place(BaseModel, Base):
     """ Attributes for place class"""
-    if getenv("HBNB_TYPE_STORAGE") == 'db':
-        __tablename__ = "places"
+    # if getenv("HBNB_TYPE_STORAGE") == 'db':
+    __tablename__ = "places"
 
-        city_id = Column(String(60),  ForeignKey("cities.id"), nullable=False)
-        user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
-        name = Column(String(128), nullable=False)
-        description = Column(String(1024), nullable=True)
-        number_rooms = Column(Integer(), nullable=False, default=0)
-        number_bathrooms = Column(Integer, nullable=False, default=0)
-        max_guest = Column(Integer, nullable=False, default=0)
-        price_by_night = Column(Integer, nullable=False, default=0)
-        latitude = Column(Float, nullable=True)
-        longitude = Column(Float, nullable=True)
-        reviews = relationship('Review', backref='place',
-                               cascade='all, delete-orphan')
-        amenities = relationship('Amenity', secondary='place_amenity',
-                                 backref="place_amenities",
-                                 viewonly=False)
+    city_id = Column(String(60),  ForeignKey("cities.id"), nullable=False)
+    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+    name = Column(String(128), nullable=False)
+    description = Column(String(1024), nullable=True)
+    number_rooms = Column(Integer(), nullable=False, default=0)
+    number_bathrooms = Column(Integer, nullable=False, default=0)
+    max_guest = Column(Integer, nullable=False, default=0)
+    price_by_night = Column(Integer, nullable=False, default=0)
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
+    reviews = relationship('Review', backref='place',
+                            cascade='all, delete-orphan')
+    amenities = relationship('Amenity', secondary='place_amenity',
+                                backref="place_amenities",
+                                viewonly=False)
 
-    else:
-        city_id = ""
-        user_id = ""
-        name = ""
-        description = ""
-        number_rooms = 0
-        number_bathrooms = 0
-        max_guest = 0
-        price_by_night = 0
-        latitude = 0.0
-        longitude = 0.0
-        amenity_ids = []
+    # else:
+    #     city_id = ""
+    #     user_id = ""
+    #     name = ""
+    #     description = ""
+    #     number_rooms = 0
+    #     number_bathrooms = 0
+    #     max_guest = 0
+    #     price_by_night = 0
+    #     latitude = 0.0
+    #     longitude = 0.0
+    #     amenity_ids = []
 
-        if getenv("HBNB_TYPE_STORAGE") != 'db':
-            @property
-            def reviews(self):
-                """returns list of review instances"""
-                reviewList = []
-                for reviews in models.storage.all(Review).values():
-                    if reviews.place_id == self.id:
-                        reviewList.append(reviews)
-                return reviewList
+    if getenv("HBNB_TYPE_STORAGE") != 'db':
+        @property
+        def reviews(self):
+            """returns list of review instances"""
+            reviewList = []
+            for reviews in models.storage.all(Review).values():
+                if reviews.place_id == self.id:
+                    reviewList.append(reviews)
+            return reviewList
 
-            @property
-            def amenities(self):
-                """returns list of amenity instances"""
-                amenityList = []
-                for amenities in models.storage.all(Amenity).values():
-                    if amenities.place_id == self.id:
-                        amenityList.append(amenities)
-                return amenityList
+        @property
+        def amenities(self):
+            """returns list of amenity instances"""
+            amenityList = []
+            for amenities in models.storage.all(Amenity).values():
+                if amenities.place_id == self.id:
+                    amenityList.append(amenities)
+            return amenityList
 
-            @amenities.setter
-            def amenities(self, amenityObject):
-                if isinstance(amenityObject, Amenity):
-                    self.amenity_ids.append(amenityObject.id)
+        @amenities.setter
+        def amenities(self, amenityObject):
+            if isinstance(amenityObject, Amenity):
+                self.amenity_ids.append(amenityObject.id)
