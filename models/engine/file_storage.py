@@ -15,7 +15,7 @@ class FileStorage:
         else:
             dictOfClassMatchInObjectDict = {}
             for key, value in self.__objects.items():
-                if cls in str(type(value)):
+                if str(cls) in str(type(value)):
                     dictOfClassMatchInObjectDict[key] = value
             return dictOfClassMatchInObjectDict
 
