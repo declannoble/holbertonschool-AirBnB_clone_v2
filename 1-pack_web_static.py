@@ -12,7 +12,7 @@ def do_pack():
         Generates a .tgz archine from contents of web_static
     """
     date = datetime.now().strftime("%Y%m%d%H%M%S")
-    filename = "version/web_static_{}.tgz".format(date)
+    filename = "versions/web_static_{}.tgz".format(date)
     local("mkdir -p versions")
     archive_file = local("tar -czvf {} web_static".format(filename))
     if archive_file:
