@@ -14,7 +14,7 @@ def do_pack():
     date = datetime.now().strftime("%Y%m%d%H%M%S")
     filename = "version/web_static_{}.tgz".format(date)
     local("mkdir -p versions")
-    archive_file = local("tar -czvf {}.tar.gz web_static".format(filename))
+    archive_file = local("tar -czvf {} web_static".format(filename))
     if archive_file:
         return filename
     else:
