@@ -4,7 +4,7 @@ from the contents of the web_static folder
 sing the function do_pack. """
 
 from fabric.api import local
-import datetime
+from datetime import datetime
 
 
 def do_pack():
