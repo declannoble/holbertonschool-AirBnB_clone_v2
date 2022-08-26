@@ -2,7 +2,7 @@
 """script to upload archive to web server"""
 from fabric.api import *
 
-env.hosts = ['54.90.249.226', '54.211.125.140']
+env.hosts = ['3.94.193.192', '50.19.39.94']
 
 
 def do_deploy(archive_path):
