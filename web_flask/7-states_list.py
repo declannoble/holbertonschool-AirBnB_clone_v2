@@ -2,7 +2,6 @@
 """This module starts a Flask web application and displays states
 """
 from flask import Flask
-from flask import escape
 from flask import render_template
 from models import *
 
